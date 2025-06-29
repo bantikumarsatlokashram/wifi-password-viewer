@@ -12,6 +12,25 @@ Built using **Electron**, **HTML + Tailwind CSS**, and **Node.js**, this app off
 
 ---
 
+## 🚀 Releases
+
+The latest version of the WiFi Password Viewer is available as a precompiled `.exe` file for Windows users.
+
+### 📦 Download
+👉 [WiFi Password Viewer.exe](https://github.com/bantikumarsatlokashram/wifi-password-viewer/releases/download/v1.0.1/wifi-password-viewer-1.0.0.Setup.exe)
+
+### ✅ How to Use:
+1. Download the `.exe` file to your system
+2. Double-click to run — no installation needed
+3. Grant permission if prompted by Windows SmartScreen
+4. Use the app to:
+   - Select a saved Wi-Fi network
+   - View the password and IP address instantly
+
+> ⚠️ Note: This app reads saved Wi-Fi profiles and passwords using `netsh`, which works on Windows systems only.
+
+---
+
 ## 📁 Repository
 
 **GitHub Directory:**\
