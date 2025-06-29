@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Wi-Fi Info</title>
+  </head>
+  <body class="bg-gradient-to-br from-blue-50 to-white text-gray-900 h-screen flex items-center justify-center">
+    <div class="p-8 bg-white shadow-2xl rounded-3xl max-w-md w-full text-center border border-blue-100">
+      <div id="loading" class="text-sm text-blue-600 animate-pulse mt-4">Finding your Wi-Fi passwords...</div>
+      <h1 class="text-3xl font-extrabold mb-6 text-blue-600">Wi-Fi Details</h1>
+      <select id="ssidSelect" class="border border-gray-300 rounded-lg p-2 w-full mb-4 focus:ring-2 focus:ring-blue-400">
+        <option disabled selected>Select Wi-Fi Network</option>
+      </select>
+      <button id="fetchBtn" class="bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded-lg w-full font-medium">Get Password</button>
+      <p id="ipInfo" class="mt-6 text-sm text-gray-600"></p>
+      <p id="wifiPwd" class="mt-2 font-mono text-lg text-green-600"></p>
+      <script>
+        const { ipcRenderer } = require('electron');
+
+        async function init() {
+          const ip = await ipcRenderer.invoke('get-ip');
+          document.getElementById('ipInfo').innerText = `Your IP: ${ip}`;
+
+          const ssids = await ipcRenderer.invoke('get-ssid-list');
+          const select = document.getElementById('ssidSelect');
+          ssids.forEach(ssid => {
+            const opt = document.createElement('option');
+            opt.value = opt.innerText = ssid;
+            select.appendChild(opt);
+          });
+        }
+
+        document.getElementById('fetchBtn').addEventListener('click', async () => {
+          const ssid = document.getElementById('ssidSelect').value;
+          const pwd = await ipcRenderer.invoke('get-wifi-info', ssid);
+          document.getElementById('wifiPwd').innerText = `Password: ${pwd}`;
+        });
+
+        init();
+      </script>
+    </div>
+  </body>
+</html>
